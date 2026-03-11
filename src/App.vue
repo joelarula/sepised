@@ -1,51 +1,122 @@
 <template>
   <v-app id="app">
-    <v-main>
-      <v-app-bar prominent flat color="transparent">     
-        <v-spacer></v-spacer>  
-           <v-toolbar-title>
-            <router-link to="/" class="page-title">{{title}}</router-link>
-           </v-toolbar-title>
-          <v-spacer></v-spacer>
-      </v-app-bar>
-      <v-container>
-      <router-view :lang="lang" :api="api" :nodes="nodes" :categories="categories"></router-view>          
-      <footer>
-        <div id="contact">
-            <div v-if="lang.value === 'et'">Info ja tellimine   mobiil: {{mobile}}   email: {{email}}</div>
-            <div v-if="lang.value === 'en'">Info and ordering   mobile: {{mobile}}   email: {{email}}</div>
-            <div v-if="lang.value === 'ru'">Информация и заказ  мобильный: {{mobile}} письмо: {{email}}</div>
-            <div id="langs">
-             <v-select       
-              :items="langs"
-              v-model="lang"
-              prepend-icon="language"
-              return-object>
-               <template v-slot:item="{ props, item }">
-                  <v-list-item v-bind="props">
-                    <template v-slot:prepend>
-                      <img class="flag" :src="item.raw.image" style="width: 24px; margin-right: 8px;">
-                    </template>
-                  </v-list-item>
-               </template>
-              </v-select>
-            </div>
+    <v-app-bar 
+      flat 
+      color="transparent" 
+      class="robust-border-bottom"
+      density="comfortable"
+      absolute
+    >
+      <v-container class="d-flex align-center pa-0 fill-height" fluid style="position: relative;">
+        <div v-if="!isContactPage" class="smithy-brand desktop-center-title">
+          <router-link :to="`/${lang.value}`" class="nav-brand-goudy">{{title}}</router-link>
         </div>
-    </footer>
-     </v-container>
+
+        <v-spacer></v-spacer>
+
+        <div class="hidden-sm-and-down d-flex align-center pr-4">
+          <v-btn
+            :to="`/${lang.value}`"
+            variant="text"
+            class="minimal-button mx-1"
+            :active="isActive('')"
+          >
+            {{ navItems[0].title }}
+          </v-btn>
+
+          <!-- Portfolio with Categories Submenu -->
+          <v-menu open-on-hover transition="slide-y-transition">
+            <template v-slot:activator="{ props }">
+              <v-btn
+                v-bind="props"
+                variant="text"
+                class="minimal-button mx-1"
+                :to="`/${lang.value}/portfolio`"
+                :active="isActive('/portfolio')"
+                append-icon="md:expand_more"
+              >
+                {{ navItems[1].title }}
+              </v-btn>
+            </template>
+            <v-list class="bg-steel robust-border border-amber">
+              <v-list-item
+                v-for="cat in categories"
+                :key="cat.id"
+                :to="`/${lang.value}/portfolio?category=${cat.id}`"
+                class="minimal-button"
+                active-class="active-nav-item"
+              >
+                <v-list-item-title class="text-uppercase text-caption">{{ cat[lang.value] || cat.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <v-btn
+            :to="`/${lang.value}/contact`"
+            variant="text"
+            class="minimal-button mx-1"
+            :active="isActive('/contact')"
+          >
+            {{ navItems[2].title }}
+          </v-btn>
+
+          <!-- Language Switcher refined and moved right -->
+          <v-menu location="start">
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props" variant="text" size="small" icon class="ml-4">
+                <v-icon size="small" color="amber">md:language</v-icon>
+              </v-btn>
+            </template>
+            <v-list class="bg-steel robust-border">
+              <v-list-item
+                v-for="l in langs"
+                :key="l.value"
+                @click="switchLang(l)"
+                min-width="120"
+              >
+                <v-list-item-title class="text-caption d-flex align-center">
+                  <img :src="l.image" class="mr-2" style="width: 16px">
+                  {{ l.text }}
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-app-bar-nav-icon>
+      </v-container>
+    </v-app-bar>
+
+    <v-navigation-drawer v-model="drawer" temporary color="charcoal">
+      <v-list>
+        <v-list-item v-for="item in navItems" :key="item.path" :to="`/${lang.value}${item.path}`">
+          <v-list-item-title class="minimal-button">{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-main>
+      <router-view :lang="lang" :api="api" :nodes="nodes" :categories="categories" :t="t"></router-view>
     </v-main>
+
+    <v-footer color="transparent" class="pa-12"></v-footer>
   </v-app>
 </template>
 
 <script>
+import et from './i18n/et.json'
+import en from './i18n/en.json'
+import ru from './i18n/ru.json'
+
 export default {
   name: 'App',
   data: () => ({
     title: "Jaani Sepikoda",
-    email: "jaan59021@gmail.com",
-    mobile: "55629571",
+    drawer: false,
     api: "https://www.dev.sepised.com",
-    lang: { value: "et", text: "eesti" },
+    lang: { value: "et", text: "Eesti" },
+    translations: { et, en, ru },
     langs: [
       { value: "et", text: "Eesti", image: new URL('@/assets/ee.png', import.meta.url).href },
       { value: "en", text: "English", image: new URL('@/assets/en.png', import.meta.url).href },
@@ -55,9 +126,24 @@ export default {
     nodes: [],
     options: { mode: 'cors', headers: { 'Access-Control-Allow-Origin': '*' } }
   }),
+  computed: {
+    isContactPage() {
+      return this.$route.path.endsWith('/contact')
+    },
+    t() {
+      return this.translations[this.lang.value]
+    },
+    navItems() {
+      return [
+        { title: this.t.nav.home, path: '' },
+        { title: this.t.nav.portfolio, path: '/portfolio' },
+        { title: this.t.nav.contact, path: '/contact' }
+      ]
+    }
+  },
   watch: {
     '$route.params': function (to) {
-      if (to.lang != undefined) {
+      if (to.lang && to.lang !== this.lang.value) {
         const found = this.langs.find(l => l.value === to.lang)
         if (found) this.lang = found
       }
@@ -71,51 +157,54 @@ export default {
       });
   },
   methods: {
+    isActive(path) {
+      const fullPath = this.$route.path;
+      if (path === '') return fullPath === `/${this.lang.value}` || fullPath === `/${this.lang.value}/`;
+      return fullPath.startsWith(`/${this.lang.value}${path}`);
+    },
+    switchLang(l) {
+      this.lang = l;
+      const newPath = this.$route.path.replace(/^\/(et|en|ru)/, `/${l.value}`) || `/${l.value}`;
+      this.$router.push(newPath);
+    },
     processData(data) {
-      data.included.filter(d => d.type == "taxonomy_term--tags").map(d => {
-        var map = {}
-        map.nodes = []
-        map.id = d.id
-        map.title = d.attributes.name
-        map.et = d.attributes.name
-        map.ru = d.attributes.field_name_ru
-        map.en = d.attributes.field_term_en
-        if (this.categories.filter(c => c.id == map.id).length == 0) {
-          this.categories.push(map)
-        }
-        return map;
-      })
-
-      let filemap = {}
-      data.included.filter(d => d.type == "file--file").map(d => {
-        filemap[d.id] = d;
-      })
-
-      data.data.map(n => {
-        var nmap = {}
-        nmap.id = n.id
-        nmap.category = n.relationships.field_tag.data.id
-        nmap.photo = n.relationships.field_photo.data.id
-        nmap.ru = n.attributes.field_name_ru
-        nmap.en = n.attributes.field_name_en
-        nmap.title = n.attributes.title
-        nmap.et = n.attributes.title
-        nmap.promote = n.attributes.promote
-        nmap.imagename = filemap[nmap.photo].attributes.filename
-
-        nmap.details = n.relationships.field_detail.data.map(d => {
-          return filemap[d.id].attributes.filename
-        })
-        this.nodes.push(nmap)
-        return nmap;
+      const rawCategories = data.included.filter(d => d.type == "taxonomy_term--tags").map(d => ({
+        id: d.id,
+        title: d.attributes.name,
+        et: d.attributes.name,
+        ru: d.attributes.field_name_ru,
+        en: d.attributes.field_term_en
+      }));
+      
+      rawCategories.forEach(cat => {
+        if (!this.categories.some(c => c.id === cat.id)) this.categories.push(cat);
       });
 
-      if (data.links != undefined && data.links.next != undefined) {
+      const filemap = {};
+      data.included.filter(d => d.type == "file--file").forEach(d => {
+        filemap[d.id] = d;
+      });
+
+      data.data.forEach(n => {
+        const nmap = {
+          id: n.id,
+          category: n.relationships.field_tag.data.id,
+          photo: n.relationships.field_photo.data.id,
+          ru: n.attributes.field_name_ru,
+          en: n.attributes.field_name_en,
+          title: n.attributes.title,
+          et: n.attributes.title,
+          promote: n.attributes.promote,
+          imagename: filemap[n.relationships.field_photo.data.id]?.attributes.filename,
+          details: n.relationships.field_detail.data.map(d => filemap[d.id]?.attributes.filename)
+        };
+        if (!this.nodes.some(existing => existing.id === nmap.id)) this.nodes.push(nmap);
+      });
+
+      if (data.links?.next) {
         fetch(data.links.next.href, this.options)
-          .then(response => response.json())
-          .then((next) => {
-            this.processData(next)
-          });
+          .then(res => res.json())
+          .then(next => this.processData(next));
       }
     }
   }
@@ -123,69 +212,57 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
-  font-family: 'goudy';
-  src: url('@/assets/goudy.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'arkhip';
-  src: url('@/assets/Arkhip_font.ttf') format('truetype');
-}
-
 #app {
-  background-color: #000;
-  color: #fff;
-  position: relative;
-  background-image: url('@/assets/base/css/tuli2.jpg');
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+  background: transparent !important;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40px;
-  padding-bottom: 8px;
-  text-align: center;
-  font-size: 18px;
+.nav-brand-goudy {
+  font-family: 'arkhip', sans-serif;
+  font-size: 42px;
   color: #FDDE7C;
-  background: rgba(10, 10, 10, 0.7);
-  z-index: 100;
-}
-
-.page-title,
-.page-title:hover {
-  text-align: center;
   text-decoration: none;
-  font-family: goudy, georgia, verdana, helvetica, sans-serif;
-  font-size: 50px;
-  color: #FDDE7C;
+  line-height: 1;
+  font-weight: normal;
+  letter-spacing: 2px;
 }
 
-#contact {
-  width: 100%;
-  max-width: 800px;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  position: relative;
+.robust-border-bottom {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-#langs {
-  position: absolute;
-  right: 10px;
-  width: 150px;
-  top: -10px;
+.border-amber {
+  border: 1px solid var(--color-ember) !important;
 }
 
-:deep(.v-input__details) {
-  display: none;
+.bg-steel {
+  background-color: var(--color-steel) !important;
+}
+
+.active-nav-item {
+  color: var(--color-ember) !important;
+  border: 1px solid var(--color-ember) !important;
+}
+
+@media (min-width: 960px) {
+  .desktop-center-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+}
+
+.smithy-brand {
+  transition: padding var(--transition-speed);
+}
+
+@media (min-width: 960px) {
+  .smithy-brand {
+    padding-top: 20px;
+  }
+}
+
+.opacity-60 {
+  opacity: 0.6;
 }
 </style>

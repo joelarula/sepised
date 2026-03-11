@@ -1,0 +1,29 @@
+{
+    "nav": {
+        "home": "Home",
+        "portfolio": "Portfolio",
+        "contact": "Contact",
+        "categories": "Categories"
+    },
+    "home": {
+        "welcome": "Jaani Sepikoda",
+        "subtitle": "Traditional blacksmithing in a modern form",
+        "viewPortfolio": "View Portfolio"
+    },
+    "portfolio": {
+        "title": "Tehtud Tööd",
+        "all": "All",
+        "searchPlaceholder": "Search portfolio..."
+    },
+    "product": {
+        "back": "Back",
+        "fullSize": "Full Size View",
+        "inquiry": "Inquiry"
+    },
+    "contact": {
+        "title": "Contact",
+        "phone": "Phone",
+        "email": "Email",
+        "location": "Location"
+    }
+}

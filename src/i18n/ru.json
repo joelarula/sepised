@@ -1,0 +1,29 @@
+{
+    "nav": {
+        "home": "Главная",
+        "portfolio": "Портфолио",
+        "contact": "Контакт",
+        "categories": "Категории"
+    },
+    "home": {
+        "welcome": "Jaani Sepikoda",
+        "subtitle": "Традиционная кузнечная ковка в современной форме",
+        "viewPortfolio": "Смотреть портфолио"
+    },
+    "portfolio": {
+        "title": "Портфолио",
+        "all": "Все",
+        "searchPlaceholder": "Поиск в портфолио..."
+    },
+    "product": {
+        "back": "Назад",
+        "fullSize": "Полный экран",
+        "inquiry": "Запросить расчет"
+    },
+    "contact": {
+        "title": "Контакт",
+        "phone": "Телефон",
+        "email": "Эл. почта",
+        "location": "Местоположение"
+    }
+}

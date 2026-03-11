@@ -1,0 +1,29 @@
+{
+    "nav": {
+        "home": "Avaleht",
+        "portfolio": "Tehtud tööd",
+        "contact": "Kontakt",
+        "categories": "Kategooriad"
+    },
+    "home": {
+        "welcome": "Jaani Sepikoda",
+        "subtitle": "Traditsiooniline sepatöö kaasaegses vormis",
+        "viewPortfolio": "Vaata portfooliot"
+    },
+    "portfolio": {
+        "title": "Tehtud tööd",
+        "all": "Kõik",
+        "searchPlaceholder": "Otsi portfooliost..."
+    },
+    "product": {
+        "back": "Tagasi",
+        "fullSize": "Suurem vaade",
+        "inquiry": "Küsi pakkumist"
+    },
+    "contact": {
+        "title": "Kontakt",
+        "phone": "Telefon",
+        "email": "E-post",
+        "location": "Asukoht"
+    }
+}

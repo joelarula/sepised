@@ -1,0 +1,98 @@
+@font-face {
+  font-family: goudy;
+  src: url(../fonts/goudy.18adeb54.eot);
+}
+
+@font-face {
+  font-family: 'arkhip';
+  src: url('../fonts/Arkhip_font.ttf') format('truetype');
+}
+
+:root {
+  /* Forge & Steel Palette */
+  --color-charcoal: #121212;
+  --color-steel: #2c2c2e;
+  --color-silver: #e0e0e0;
+  --color-ember: #ff6d00;
+  --color-ember-glow: rgba(255, 109, 0, 0.4);
+
+  /* Typography */
+  --font-brand: 'goudy', georgia, verdana, helvetica, sans-serif;
+  --font-title: 'Roboto', 'goudy', serif;
+  --font-body: 'Roboto', 'Roboto', sans-serif;
+
+  /* Spacing & Borders */
+  --border-radius: 4px;
+  /* Minimalistic sharp-ish edges */
+  --transition-speed: 0.3s;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-charcoal);
+  color: var(--color-silver);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  background-image: url('@/assets/base/css/tuli2.jpg');
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.smithy-title {
+  font-family: var(--font-title);
+  letter-spacing: 0.1rem;
+}
+
+.ember-text {
+  color: var(--color-ember);
+  text-shadow: 0 0 10px var(--color-ember-glow);
+}
+
+.robust-border {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.minimal-button {
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-weight: 300;
+}
+
+/* Scrollbar customization for a cleaner look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-charcoal);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-steel);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ember);
+}
+
+/* Animations */
+@keyframes ember-pulse {
+  0% {
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.8;
+  }
+}
+
+.pulse-ember {
+  animation: ember-pulse 3s infinite ease-in-out;
+}
