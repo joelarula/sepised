@@ -54,6 +54,8 @@ The design is robust, minimalistic, and high-contrast, reflecting the craft of b
 ## ⚙️ Core Functionality & Patterns
 - **Multilingual Support (i18n)**: 
   - Static strings are externalized in `src/i18n/{et,en,ru}.json`.
+  - **All built-in strings and UI texts MUST have translation support.**
+  - **Avoid hardcoding any user-facing text** directly in templates; always use the `t` object.
   - components consume a reactive `t` prop passed from `App.vue`.
   - Mapping: `{{ t.category.key }}` (e.g., `{{ t.nav.home }}`).
   - Dynamic data (Drupal) still uses language-prefixed keys (e.g., `field_name_ru`).

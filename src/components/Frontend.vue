@@ -68,7 +68,11 @@ export default {
         node = nodes[0]
       }    
       if (!node) return ''
-      return `${this.api}/sites/default/files/styles/medium/public/sepised/${node.imagename}`
+      return this.getImage(node)
+    },
+    getImage(node) {
+      if (!node.imagename) return '';
+      return node.imagename;
     },
     getCatalogLink(category){
       return `/${this.lang.value}/${category.title}`

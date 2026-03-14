@@ -1,0 +1,455 @@
+{
+    "data": {
+        "__schema": {
+            "types": [
+                {
+                    "name": "String",
+                    "fields": null
+                },
+                {
+                    "name": "Int",
+                    "fields": null
+                },
+                {
+                    "name": "Boolean",
+                    "fields": null
+                },
+                {
+                    "name": "RootQuery",
+                    "fields": [
+                        {
+                            "name": "allSettings"
+                        },
+                        {
+                            "name": "categories"
+                        },
+                        {
+                            "name": "category"
+                        },
+                        {
+                            "name": "comment"
+                        },
+                        {
+                            "name": "comments"
+                        },
+                        {
+                            "name": "contentNode"
+                        },
+                        {
+                            "name": "contentNodes"
+                        },
+                        {
+                            "name": "contentType"
+                        },
+                        {
+                            "name": "contentTypes"
+                        },
+                        {
+                            "name": "discussionSettings"
+                        },
+                        {
+                            "name": "generalSettings"
+                        },
+                        {
+                            "name": "mediaItem"
+                        },
+                        {
+                            "name": "mediaItems"
+                        },
+                        {
+                            "name": "menu"
+                        },
+                        {
+                            "name": "menuItem"
+                        },
+                        {
+                            "name": "menuItems"
+                        },
+                        {
+                            "name": "menus"
+                        },
+                        {
+                            "name": "node"
+                        },
+                        {
+                            "name": "nodeByUri"
+                        },
+                        {
+                            "name": "page"
+                        },
+                        {
+                            "name": "pages"
+                        },
+                        {
+                            "name": "plugin"
+                        },
+                        {
+                            "name": "plugins"
+                        },
+                        {
+                            "name": "post"
+                        },
+                        {
+                            "name": "postFormat"
+                        },
+                        {
+                            "name": "postFormats"
+                        },
+                        {
+                            "name": "posts"
+                        },
+                        {
+                            "name": "readingSettings"
+                        },
+                        {
+                            "name": "registeredScripts"
+                        },
+                        {
+                            "name": "registeredStylesheets"
+                        },
+                        {
+                            "name": "revisions"
+                        },
+                        {
+                            "name": "tag"
+                        },
+                        {
+                            "name": "tags"
+                        },
+                        {
+                            "name": "taxonomies"
+                        },
+                        {
+                            "name": "taxonomy"
+                        },
+                        {
+                            "name": "termNode"
+                        },
+                        {
+                            "name": "terms"
+                        },
+                        {
+                            "name": "theme"
+                        },
+                        {
+                            "name": "themes"
+                        },
+                        {
+                            "name": "user"
+                        },
+                        {
+                            "name": "userRole"
+                        },
+                        {
+                            "name": "userRoles"
+                        },
+                        {
+                            "name": "users"
+                        },
+                        {
+                            "name": "viewer"
+                        },
+                        {
+                            "name": "writingSettings"
+                        }
+                    ]
+                },
+                {
+                    "name": "Category",
+                    "fields": [
+                        {
+                            "name": "ancestors"
+                        },
+                        {
+                            "name": "children"
+                        },
+                        {
+                            "name": "contentNodes"
+                        },
+                        {
+                            "name": "count"
+                        },
+                        {
+                            "name": "databaseId"
+                        },
+                        {
+                            "name": "description"
+                        },
+                        {
+                            "name": "enqueuedScripts"
+                        },
+                        {
+                            "name": "enqueuedStylesheets"
+                        },
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "isComment"
+                        },
+                        {
+                            "name": "isContentNode"
+                        },
+                        {
+                            "name": "isFrontPage"
+                        },
+                        {
+                            "name": "isPostsPage"
+                        },
+                        {
+                            "name": "isRestricted"
+                        },
+                        {
+                            "name": "isTermNode"
+                        },
+                        {
+                            "name": "link"
+                        },
+                        {
+                            "name": "name"
+                        },
+                        {
+                            "name": "parent"
+                        },
+                        {
+                            "name": "parentDatabaseId"
+                        },
+                        {
+                            "name": "parentId"
+                        },
+                        {
+                            "name": "posts"
+                        },
+                        {
+                            "name": "slug"
+                        },
+                        {
+                            "name": "taxonomy"
+                        },
+                        {
+                            "name": "taxonomyName"
+                        },
+                        {
+                            "name": "termGroupId"
+                        },
+                        {
+                            "name": "termTaxonomyId"
+                        },
+                        {
+                            "name": "uri"
+                        }
+                    ]
+                },
+                {
+                    "name": "MediaItem",
+                    "fields": [
+                        {
+                            "name": "altText"
+                        },
+                        {
+                            "name": "ancestors"
+                        },
+                        {
+                            "name": "author"
+                        },
+                        {
+                            "name": "authorDatabaseId"
+                        },
+                        {
+                            "name": "authorId"
+                        },
+                        {
+                            "name": "caption"
+                        },
+                        {
+                            "name": "children"
+                        },
+                        {
+                            "name": "commentCount"
+                        },
+                        {
+                            "name": "commentStatus"
+                        },
+                        {
+                            "name": "comments"
+                        },
+                        {
+                            "name": "contentType"
+                        },
+                        {
+                            "name": "contentTypeName"
+                        },
+                        {
+                            "name": "databaseId"
+                        },
+                        {
+                            "name": "date"
+                        },
+                        {
+                            "name": "dateGmt"
+                        },
+                        {
+                            "name": "description"
+                        },
+                        {
+                            "name": "desiredSlug"
+                        },
+                        {
+                            "name": "editingLockedBy"
+                        },
+                        {
+                            "name": "enclosure"
+                        },
+                        {
+                            "name": "enqueuedScripts"
+                        },
+                        {
+                            "name": "enqueuedStylesheets"
+                        },
+                        {
+                            "name": "file"
+                        },
+                        {
+                            "name": "filePath"
+                        },
+                        {
+                            "name": "fileSize"
+                        },
+                        {
+                            "name": "guid"
+                        },
+                        {
+                            "name": "hasPassword"
+                        },
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "isComment"
+                        },
+                        {
+                            "name": "isContentNode"
+                        },
+                        {
+                            "name": "isFrontPage"
+                        },
+                        {
+                            "name": "isPostsPage"
+                        },
+                        {
+                            "name": "isPreview"
+                        },
+                        {
+                            "name": "isRestricted"
+                        },
+                        {
+                            "name": "isTermNode"
+                        },
+                        {
+                            "name": "lastEditedBy"
+                        },
+                        {
+                            "name": "link"
+                        },
+                        {
+                            "name": "mediaDetails"
+                        },
+                        {
+                            "name": "mediaFiles"
+                        },
+                        {
+                            "name": "mediaItemUrl"
+                        },
+                        {
+                            "name": "mediaType"
+                        },
+                        {
+                            "name": "mimeType"
+                        },
+                        {
+                            "name": "modified"
+                        },
+                        {
+                            "name": "modifiedGmt"
+                        },
+                        {
+                            "name": "parent"
+                        },
+                        {
+                            "name": "parentDatabaseId"
+                        },
+                        {
+                            "name": "parentId"
+                        },
+                        {
+                            "name": "password"
+                        },
+                        {
+                            "name": "previewRevisionDatabaseId"
+                        },
+                        {
+                            "name": "previewRevisionId"
+                        },
+                        {
+                            "name": "sizes"
+                        },
+                        {
+                            "name": "slug"
+                        },
+                        {
+                            "name": "sourceUrl"
+                        },
+                        {
+                            "name": "srcSet"
+                        },
+                        {
+                            "name": "status"
+                        },
+                        {
+                            "name": "template"
+                        },
+                        {
+                            "name": "title"
+                        },
+                        {
+                            "name": "uri"
+                        }
+                    ]
+                },
+                {
+                    "name": "WithAcfMediaFiles",
+                    "fields": [
+                        {
+                            "name": "mediaFiles"
+                        }
+                    ]
+                },
+                {
+                    "name": "MediaFiles",
+                    "fields": [
+                        {
+                            "name": "category"
+                        },
+                        {
+                            "name": "price"
+                        },
+                        {
+                            "name": "titleEn"
+                        },
+                        {
+                            "name": "titleRu"
+                        }
+                    ]
+                },
+                {
+                    "name": "AcfFieldGroup",
+                    "fields": []
+                },
+                {
+                    "name": "AcfFieldGroupFields",
+                    "fields": []
+                }
+            ]
+        }
+    }
+}

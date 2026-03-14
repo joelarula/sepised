@@ -1,0 +1,21 @@
+{
+  "errors": [
+    {
+      "message": "The query contained __schema or __type, however GraphQL introspection is not allowed for public requests by default. Public introspection can be enabled under the WPGraphQL Settings.",
+      "locations": [
+        {
+          "line": 3,
+          "column": 13
+        }
+      ]
+    }
+  ],
+  "extensions": {
+    "debug": [
+      {
+        "type": "DEBUG_LOGS_INACTIVE",
+        "message": "GraphQL Debug logging is not active. To see debug logs, GRAPHQL_DEBUG must be enabled."
+      }
+    ]
+  }
+}

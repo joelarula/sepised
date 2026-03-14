@@ -20,7 +20,7 @@
   <div class="imgcontainer">
       <router-link :to="getNodeLink(n)" >
       <v-img
-        :src="getPreview(n)"
+        :src="getImage(n)"
         aspect-ratio="1"
         max-height="180"  
         max-width="180" 
@@ -71,8 +71,9 @@ export default {
     }
   },
   methods:{
-    getPreview(node){
-      return `${this.api}/sites/default/files/styles/medium/public/sepised/${node.imagename}`
+    getImage(node) {
+      if (!node.imagename) return '';
+      return node.imagename;
     },
     getNodeLink(node){
       return `/${this.lang.value}/${this.selectedCategory.title}/${node.title}`

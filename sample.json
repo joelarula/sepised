@@ -1,0 +1,76 @@
+{
+  "data": {
+    "mediaItems": {
+      "nodes": [
+        {
+          "id": "cG9zdDoxODE=",
+          "title": "IMG_2225",
+          "mediaItemUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2225.jpg",
+          "__typename": "MediaItem"
+        },
+        {
+          "id": "cG9zdDoxODA=",
+          "title": "IMG_2226",
+          "mediaItemUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2226.jpg",
+          "__typename": "MediaItem"
+        },
+        {
+          "id": "cG9zdDoxNzk=",
+          "title": "IMG_2230",
+          "mediaItemUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2230.jpg",
+          "__typename": "MediaItem"
+        },
+        {
+          "id": "cG9zdDoxNzg=",
+          "title": "IMG_2233",
+          "mediaItemUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2233.jpg",
+          "__typename": "MediaItem"
+        },
+        {
+          "id": "cG9zdDoxNzc=",
+          "title": "IMG_2242",
+          "mediaItemUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2242.jpg",
+          "__typename": "MediaItem"
+        },
+        {
+          "id": "cG9zdDoxNzY=",
+          "title": "IMG_2243",
+          "mediaItemUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2243.jpg",
+          "__typename": "MediaItem"
+        },
+        {
+          "id": "cG9zdDoxNzU=",
+          "title": "IMG_E2253",
+          "mediaItemUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_E2253.jpg",
+          "__typename": "MediaItem"
+        },
+        {
+          "id": "cG9zdDoxNzQ=",
+          "title": "IMG_2258",
+          "mediaItemUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2258.jpg",
+          "__typename": "MediaItem"
+        },
+        {
+          "id": "cG9zdDoxNzM=",
+          "title": "IMG_2261",
+          "mediaItemUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2261.jpg",
+          "__typename": "MediaItem"
+        },
+        {
+          "id": "cG9zdDoxNzI=",
+          "title": "IMG_2262",
+          "mediaItemUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2262.jpg",
+          "__typename": "MediaItem"
+        }
+      ]
+    }
+  },
+  "extensions": {
+    "debug": [
+      {
+        "type": "DEBUG_LOGS_INACTIVE",
+        "message": "GraphQL Debug logging is not active. To see debug logs, GRAPHQL_DEBUG must be enabled."
+      }
+    ]
+  }
+}

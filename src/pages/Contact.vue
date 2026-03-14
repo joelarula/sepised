@@ -27,7 +27,7 @@
 
         <div>
           <div class="text-overline amber-text mb-1">{{ t.contact.location }}</div>
-          <div class="text-h5 font-weight-light opacity-80">Viljandimaa, Eesti</div>
+          <div class="text-h5 font-weight-light opacity-80">{{ t.contact.locationValue }}</div>
         </div>
       </div>
     </v-card>

@@ -33,9 +33,9 @@
     </v-row>
 
     <v-row justify="center">
-      <v-col cols="12" md="8" lg="6" class="text-center">
+      <v-col cols="12" md="10" lg="7" class="text-center">
         <!-- Title on Top -->
-        <h1 class="smithy-title text-h2 mb-8 ember-text">{{ getTitle }}</h1>
+        <h1 class="smithy-title text-h2 mb-8 brand-color-text font-weight-light">{{ getTitle }}</h1>
         
         <v-hover v-slot="{ isHovering, props }">
           <v-card 
@@ -46,7 +46,6 @@
           >
             <v-img
               :src="getPreview"
-              aspect-ratio="1"
               contain
               class="catalogimg transition-swing mx-auto"
               :style="isHovering ? 'transform: scale(1.02); cursor: zoom-in' : ''"
@@ -102,7 +101,7 @@
           ></v-btn>
           
           <v-img 
-            :src="src || getPreview" 
+            :src="src || getOriginal" 
             contain 
             max-height="90vh" 
             max-width="95vw"
@@ -140,6 +139,11 @@ export default {
     overlay: false,
     src: ""
   }),
+  watch: {
+    '$route.params.product'() {
+      this.src = ""
+    }
+  },
   computed: {
     selectedNode() {
       const { product } = this.$route.params
@@ -162,7 +166,11 @@ export default {
     },
     getPreview() {
       if (!this.selectedNode) return ''
-      return `${this.api}/sites/default/files/styles/large/public/sepised/${this.selectedNode.imagename}`
+      return this.selectedNode.largeimage || this.selectedNode.imagename
+    },
+    getOriginal() {
+      if (!this.selectedNode || (!this.selectedNode.originalimage && !this.selectedNode.imagename)) return '';
+      return this.selectedNode.originalimage || this.selectedNode.imagename;
     },
     hasDetails() {
       return this.selectedNode?.details?.length > 0
@@ -202,12 +210,21 @@ export default {
 .bg-steel { background-color: var(--color-steel) !important; }
 .letter-spacing-2 { letter-spacing: 0.2rem; }
 .opacity-60 { opacity: 0.6; }
+.brand-color-text { color: #FDDE7C !important; }
+.font-weight-light { font-weight: 300 !important; }
 
 .catalogimg {
-  max-height: 60vh;
+  max-height: 70vh;
+  width: auto;
+  max-width: 100%;
   margin: auto;
   border-radius: var(--border-radius);
   transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  image-rendering: -webkit-optimize-contrast; /* Webkit */
+  image-rendering: high-quality;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .gap-4 { gap: 1rem; }

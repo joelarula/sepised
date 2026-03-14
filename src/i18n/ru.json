@@ -13,7 +13,8 @@
     "portfolio": {
         "title": "Портфолио",
         "all": "Все",
-        "searchPlaceholder": "Поиск в портфолио..."
+        "searchPlaceholder": "Поиск в портфолио...",
+        "loadMore": "Загрузить еще"
     },
     "product": {
         "back": "Назад",
@@ -24,6 +25,7 @@
         "title": "Контакт",
         "phone": "Телефон",
         "email": "Эл. почта",
-        "location": "Местоположение"
+        "location": "Местоположение",
+        "locationValue": "Пярну, Эстония"
     }
 }

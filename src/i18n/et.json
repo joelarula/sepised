@@ -7,13 +7,14 @@
     },
     "home": {
         "welcome": "Jaani Sepikoda",
-        "subtitle": "Traditsiooniline sepatöö kaasaegses vormis",
-        "viewPortfolio": "Vaata portfooliot"
+        "subtitle": "Sepatööd",
+        "viewPortfolio": "Vaata tehtud töid"
     },
     "portfolio": {
         "title": "Tehtud tööd",
         "all": "Kõik",
-        "searchPlaceholder": "Otsi portfooliost..."
+        "searchPlaceholder": "Otsi tehtud töid...",
+        "loadMore": "Lae rohkem"
     },
     "product": {
         "back": "Tagasi",
@@ -24,6 +25,7 @@
         "title": "Kontakt",
         "phone": "Telefon",
         "email": "E-post",
-        "location": "Asukoht"
+        "location": "Asukoht",
+        "locationValue": "Pärnu linn"
     }
 }

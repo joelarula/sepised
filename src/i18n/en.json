@@ -13,7 +13,8 @@
     "portfolio": {
         "title": "Tehtud Tööd",
         "all": "All",
-        "searchPlaceholder": "Search portfolio..."
+        "searchPlaceholder": "Search portfolio...",
+        "loadMore": "Load More"
     },
     "product": {
         "back": "Back",
@@ -24,6 +25,7 @@
         "title": "Contact",
         "phone": "Phone",
         "email": "Email",
-        "location": "Location"
+        "location": "Location",
+        "locationValue": "Pärnu"
     }
 }

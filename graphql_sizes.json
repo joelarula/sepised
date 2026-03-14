@@ -1,0 +1,225 @@
+{
+  "data": {
+    "mediaItems": {
+      "nodes": [
+        {
+          "id": "cG9zdDoxODE=",
+          "title": "IMG_2225",
+          "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2225.jpg",
+          "mediumUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2225-300x225.jpg",
+          "largeUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2225-1024x768.jpg",
+          "mediaDetails": {
+            "sizes": [
+              {
+                "name": "medium",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2225-300x225.jpg",
+                "width": "300",
+                "height": "225"
+              },
+              {
+                "name": "large",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2225-1024x768.jpg",
+                "width": "1024",
+                "height": "768"
+              },
+              {
+                "name": "thumbnail",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2225-150x150.jpg",
+                "width": "150",
+                "height": "150"
+              },
+              {
+                "name": "medium_large",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2225-768x576.jpg",
+                "width": "768",
+                "height": "576"
+              },
+              {
+                "name": "1536x1536",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2225-1536x1152.jpg",
+                "width": "1536",
+                "height": "1152"
+              }
+            ]
+          }
+        },
+        {
+          "id": "cG9zdDoxODA=",
+          "title": "IMG_2226",
+          "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2226.jpg",
+          "mediumUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2226-300x225.jpg",
+          "largeUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2226-1024x768.jpg",
+          "mediaDetails": {
+            "sizes": [
+              {
+                "name": "medium",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2226-300x225.jpg",
+                "width": "300",
+                "height": "225"
+              },
+              {
+                "name": "large",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2226-1024x768.jpg",
+                "width": "1024",
+                "height": "768"
+              },
+              {
+                "name": "thumbnail",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2226-150x150.jpg",
+                "width": "150",
+                "height": "150"
+              },
+              {
+                "name": "medium_large",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2226-768x576.jpg",
+                "width": "768",
+                "height": "576"
+              },
+              {
+                "name": "1536x1536",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2226-1536x1152.jpg",
+                "width": "1536",
+                "height": "1152"
+              }
+            ]
+          }
+        },
+        {
+          "id": "cG9zdDoxNzk=",
+          "title": "IMG_2230",
+          "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2230.jpg",
+          "mediumUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2230-225x300.jpg",
+          "largeUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2230-768x1024.jpg",
+          "mediaDetails": {
+            "sizes": [
+              {
+                "name": "medium",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2230-225x300.jpg",
+                "width": "225",
+                "height": "300"
+              },
+              {
+                "name": "large",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2230-768x1024.jpg",
+                "width": "768",
+                "height": "1024"
+              },
+              {
+                "name": "thumbnail",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2230-150x150.jpg",
+                "width": "150",
+                "height": "150"
+              },
+              {
+                "name": "medium_large",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2230-768x1024.jpg",
+                "width": "768",
+                "height": "1024"
+              },
+              {
+                "name": "1536x1536",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2230-1152x1536.jpg",
+                "width": "1152",
+                "height": "1536"
+              }
+            ]
+          }
+        },
+        {
+          "id": "cG9zdDoxNzg=",
+          "title": "IMG_2233",
+          "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2233.jpg",
+          "mediumUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2233-225x300.jpg",
+          "largeUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2233-768x1024.jpg",
+          "mediaDetails": {
+            "sizes": [
+              {
+                "name": "medium",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2233-225x300.jpg",
+                "width": "225",
+                "height": "300"
+              },
+              {
+                "name": "large",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2233-768x1024.jpg",
+                "width": "768",
+                "height": "1024"
+              },
+              {
+                "name": "thumbnail",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2233-150x150.jpg",
+                "width": "150",
+                "height": "150"
+              },
+              {
+                "name": "medium_large",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2233-768x1024.jpg",
+                "width": "768",
+                "height": "1024"
+              },
+              {
+                "name": "1536x1536",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2233-1152x1536.jpg",
+                "width": "1152",
+                "height": "1536"
+              }
+            ]
+          }
+        },
+        {
+          "id": "cG9zdDoxNzc=",
+          "title": "IMG_2242",
+          "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2242.jpg",
+          "mediumUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2242-225x300.jpg",
+          "largeUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2242-768x1024.jpg",
+          "mediaDetails": {
+            "sizes": [
+              {
+                "name": "medium",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2242-225x300.jpg",
+                "width": "225",
+                "height": "300"
+              },
+              {
+                "name": "large",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2242-768x1024.jpg",
+                "width": "768",
+                "height": "1024"
+              },
+              {
+                "name": "thumbnail",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2242-150x150.jpg",
+                "width": "150",
+                "height": "150"
+              },
+              {
+                "name": "medium_large",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2242-768x1024.jpg",
+                "width": "768",
+                "height": "1024"
+              },
+              {
+                "name": "1536x1536",
+                "sourceUrl": "https://tagatuba.sepised.com/wp-content/uploads/2026/03/IMG_2242-1152x1536.jpg",
+                "width": "1152",
+                "height": "1536"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "9ad34c8b8df74834100a3599a909cb5c8252ec4bb3e75cd4c4ab70e4166b01e6 graphql:Query operation:GetMediaSizes list:mediaitem cG9zdDoxODE= cG9zdDoxODA= cG9zdDoxNzk= cG9zdDoxNzg= cG9zdDoxNzc=",
+      "keysLength": 182,
+      "keysCount": 9,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}

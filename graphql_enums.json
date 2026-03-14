@@ -1,0 +1,44 @@
+{
+  "data": {
+    "__type": {
+      "enumValues": [
+        {
+          "name": "LARGE",
+          "description": "Large image preview suitable for detail views. (1024x1024)"
+        },
+        {
+          "name": "MEDIUM",
+          "description": "Medium image preview typically suitable for listings and detail views. (300x300)"
+        },
+        {
+          "name": "MEDIUM_LARGE",
+          "description": "Medium-to-large image preview suitable for listings and detail views. (768x0)"
+        },
+        {
+          "name": "THUMBNAIL",
+          "description": "Small image preview suitable for thumbnails and listings. (150x150)"
+        },
+        {
+          "name": "_1536X1536",
+          "description": "Custom Image Size. (1536x1536)"
+        },
+        {
+          "name": "_2048X2048",
+          "description": "Custom Image Size. (2048x2048)"
+        }
+      ]
+    }
+  },
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "9999de5db41ee077528e87188028d7b39eb06f9b30e7840073a5f53bc6b8d327 graphql:Query operation:IntrospectEnums",
+      "keysLength": 104,
+      "keysCount": 3,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}

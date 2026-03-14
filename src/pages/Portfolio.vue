@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="mb-10 align-center">
       <v-col cols="12" md="6">
-        <h1 class="smithy-title text-h3">{{ t.portfolio.title }}</h1>
+        <h1 class="smithy-title text-h4 font-weight-light">{{ t.portfolio.title }}</h1>
       </v-col>
       <v-col cols="12" md="6">
         <v-text-field
@@ -61,7 +61,7 @@
             :to="`/${lang.value}/portfolio/${getCatTitle(node)}/${node.title}`"
           >
             <v-img
-              :src="getPreview(node)"
+              :src="getImage(node)"
               aspect-ratio="1"
               cover
               class="align-end"
@@ -75,8 +75,8 @@
               <v-fade-transition>
                 <div
                   v-if="isHovering"
-                  class="d-flex transition-fast-in-fast-out bg-amber-darken-4 v-card--reveal text-h6 text-white text-center pa-2 smithy-title"
-                  style="height: 100%; opacity: 0.9;"
+                  class="d-flex transition-fast-in-fast-out hover-overlay v-card--reveal text-h6 text-white text-center pa-2 smithy-title"
+                  style="height: 100%;"
                 >
                   {{ getNodeName(node) }}
                 </div>
@@ -85,6 +85,18 @@
           </v-card>
         </v-hover>
       </v-col>
+    </v-row>
+
+    <!-- Load More Button -->
+    <v-row v-if="hasNextPage" class="mt-8 mb-12" justify="center">
+      <v-btn 
+        variant="outlined" 
+        size="x-large" 
+        class="minimal-button robust-border text-amber"
+        @click="$emit('load-more')"
+      >
+        {{ t.portfolio.loadMore }}
+      </v-btn>
     </v-row>
   </v-container>
 </template>
@@ -97,7 +109,8 @@ export default {
     lang: Object,
     nodes: Array,
     categories: Array,
-    t: Object
+    t: Object,
+    hasNextPage: Boolean
   },
   data: () => ({
     search: '',
@@ -140,8 +153,9 @@ export default {
     getNodeName(node) {
       return node[this.lang.value] || node.title
     },
-    getPreview(node) {
-      return `${this.api}/sites/default/files/styles/medium/public/sepised/${node.imagename}`
+    getImage(node) {
+      if (!node.imagename) return '';
+      return node.imagename;
     },
     handleQueryParam() {
       if (this.$route.query.category) {
@@ -159,6 +173,8 @@ export default {
   background-color: var(--color-steel) !important;
 }
 
+.font-weight-light { font-weight: 300 !important; }
+
 .active-chip {
   color: var(--color-ember) !important;
   border-color: var(--color-ember) !important;
@@ -172,5 +188,9 @@ export default {
   justify-content: center;
   position: absolute;
   width: 100%;
+}
+
+.hover-overlay {
+  background-color: rgba(75, 68, 83, 0.75) !important; /* Fire Violet Grey with more transparency */
 }
 </style>

@@ -1,0 +1,25 @@
+{
+  "errors": [
+    {
+      "message": "Cannot query field \"mediaFiles\" on type \"Category\".",
+      "locations": [
+        {
+          "line": 9,
+          "column": 7
+        }
+      ]
+    }
+  ],
+  "extensions": {
+    "debug": [],
+    "queryAnalyzer": {
+      "keys": "4e12e1fc56d785e182b577863c1277417d4bbcf4d69a35e4b61823861d369800 graphql:Query operation:GetCategories list:category",
+      "keysLength": 116,
+      "keysCount": 4,
+      "skippedKeys": "",
+      "skippedKeysSize": 0,
+      "skippedKeysCount": 0,
+      "skippedTypes": []
+    }
+  }
+}

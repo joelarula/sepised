@@ -14,7 +14,7 @@
 
         <v-spacer></v-spacer>
 
-        <div class="hidden-sm-and-down d-flex align-center pr-4">
+        <div class="header-desktop-menu d-flex align-center pr-4">
           <v-btn
             :to="`/${lang.value}`"
             variant="text"
@@ -84,11 +84,11 @@
         </div>
 
         <!-- Mobile Menu Toggle -->
-        <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon color="amber" class="header-mobile-toggle" @click="drawer = !drawer"></v-app-bar-nav-icon>
       </v-container>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" temporary color="charcoal">
+    <v-navigation-drawer v-model="drawer" temporary color="charcoal" location="right">
       <v-list>
         <v-list-item v-for="item in navItems" :key="item.path" :to="`/${lang.value}${item.path}`">
           <v-list-item-title class="minimal-button">{{ item.title }}</v-list-item-title>
@@ -97,7 +97,15 @@
     </v-navigation-drawer>
 
     <v-main>
-      <router-view :lang="lang" :api="api" :nodes="nodes" :categories="categories" :t="t"></router-view>
+      <router-view 
+        :lang="lang" 
+        :t="t" 
+        :categories="categories" 
+        :nodes="nodes" 
+        :api="api"
+        :has-next-page="hasNextPage"
+        @load-more="loadMore"
+      ></router-view>
     </v-main>
 
     <v-footer color="transparent" class="pa-12"></v-footer>
@@ -114,17 +122,19 @@ export default {
   data: () => ({
     title: "Jaani Sepikoda",
     drawer: false,
-    api: "https://www.dev.sepised.com",
+    api: "https://tagatuba.sepised.com/graphql",
     lang: { value: "et", text: "Eesti" },
     translations: { et, en, ru },
     langs: [
-      { value: "et", text: "Eesti", image: new URL('@/assets/ee.png', import.meta.url).href },
-      { value: "en", text: "English", image: new URL('@/assets/en.png', import.meta.url).href },
-      { value: "ru", text: "Rусский", image: new URL('@/assets/ru.png', import.meta.url).href }
+      { text: "Eesti", value: "et", image: new URL('@/assets/ee.png', import.meta.url).href },
+      { text: "English", value: "en", image: new URL('@/assets/en.png', import.meta.url).href },
+      { text: "Rусский", value: "ru", image: new URL('@/assets/ru.png', import.meta.url).href }
     ],
     categories: [],
     nodes: [],
-    options: { mode: 'cors', headers: { 'Access-Control-Allow-Origin': '*' } }
+    options: { mode: 'cors', headers: { 'Access-Control-Allow-Origin': '*' } },
+    hasNextPage: false,
+    endCursor: null
   }),
   computed: {
     isContactPage() {
@@ -150,11 +160,7 @@ export default {
     }
   },
   created() {
-    fetch(`${this.api}/jsonapi/node/sepis?include=field_photo,field_tag,field_detail`, this.options)
-      .then(response => response.json())
-      .then((data) => {
-        this.processData(data)
-      });
+    this.fetchData();
   },
   methods: {
     isActive(path) {
@@ -167,44 +173,107 @@ export default {
       const newPath = this.$route.path.replace(/^\/(et|en|ru)/, `/${l.value}`) || `/${l.value}`;
       this.$router.push(newPath);
     },
-    processData(data) {
-      const rawCategories = data.included.filter(d => d.type == "taxonomy_term--tags").map(d => ({
-        id: d.id,
-        title: d.attributes.name,
-        et: d.attributes.name,
-        ru: d.attributes.field_name_ru,
-        en: d.attributes.field_term_en
-      }));
-      
-      rawCategories.forEach(cat => {
-        if (!this.categories.some(c => c.id === cat.id)) this.categories.push(cat);
+    fetchData(cursor = null) {
+      const query = `
+        query GetPortfolioMedia($first: Int!, $after: String) {
+          mediaItems(first: $first, after: $after) {
+            nodes {
+              databaseId
+              title
+              sourceUrl
+              mediumUrl: sourceUrl(size: MEDIUM_LARGE)
+              largeUrl: sourceUrl(size: LARGE)
+              hdUrl: sourceUrl(size: _1536X1536)
+              mediaFiles {
+                category {
+                  nodes {
+                    databaseId
+                    name
+                    slug
+                  }
+                }
+                price
+                titleEn
+                titleRu
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+          }
+        }
+      `;
+
+      fetch(this.api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query,
+          variables: { first: 30, after: cursor }
+        })
+      })
+      .then(res => res.json())
+      .then(resData => {
+        if (resData.data && resData.data.mediaItems) {
+          this.processData(resData.data.mediaItems);
+        }
+      })
+      .catch(err => console.error("GraphQL Fetch Error:", err));
+    },
+    processData(mediaItems) {
+      // Collect unique categories from the items
+      mediaItems.nodes.forEach(node => {
+        if (node.mediaFiles?.category?.nodes?.length > 0) {
+          const cat = node.mediaFiles.category.nodes[0];
+          // Determine ID, falling back to slug or name if databaseId isn't reliable
+          const catId = cat.slug || cat.databaseId || cat.name;
+          
+          if (!this.categories.some(c => c.id === catId)) {
+            this.categories.push({
+              id: catId,
+              title: cat.name,
+              et: cat.name,
+              ru: cat.name,
+              en: cat.name
+            });
+          }
+        }
       });
 
-      const filemap = {};
-      data.included.filter(d => d.type == "file--file").forEach(d => {
-        filemap[d.id] = d;
-      });
+      // Map nodes
+      mediaItems.nodes.forEach(node => {
+        const catId = node.mediaFiles?.category?.nodes?.length > 0 
+          ? (node.mediaFiles.category.nodes[0].slug || node.mediaFiles.category.nodes[0].databaseId || node.mediaFiles.category.nodes[0].name)
+          : null;
 
-      data.data.forEach(n => {
         const nmap = {
-          id: n.id,
-          category: n.relationships.field_tag.data.id,
-          photo: n.relationships.field_photo.data.id,
-          ru: n.attributes.field_name_ru,
-          en: n.attributes.field_name_en,
-          title: n.attributes.title,
-          et: n.attributes.title,
-          promote: n.attributes.promote,
-          imagename: filemap[n.relationships.field_photo.data.id]?.attributes.filename,
-          details: n.relationships.field_detail.data.map(d => filemap[d.id]?.attributes.filename)
+          id: node.databaseId || node.title,
+          category: catId,
+          // Extract file name from URL or fallback to the full URL path
+          imagename: node.mediumUrl || node.sourceUrl,
+          largeimage: node.hdUrl || node.largeUrl || node.sourceUrl,
+          originalimage: node.sourceUrl,
+          title: node.title,
+          et: node.title,
+          en: node.mediaFiles?.titleEn || node.title,
+          ru: node.mediaFiles?.titleRu || node.title,
+          promote: false, 
+          details: [] 
         };
-        if (!this.nodes.some(existing => existing.id === nmap.id)) this.nodes.push(nmap);
+        
+        if (!this.nodes.some(existing => existing.id === nmap.id)) {
+          this.nodes.push(nmap);
+        }
       });
 
-      if (data.links?.next) {
-        fetch(data.links.next.href, this.options)
-          .then(res => res.json())
-          .then(next => this.processData(next));
+      // Handle Pagination
+      this.hasNextPage = mediaItems.pageInfo?.hasNextPage || false;
+      this.endCursor = mediaItems.pageInfo?.endCursor || null;
+    },
+    loadMore() {
+      if (this.hasNextPage) {
+        this.fetchData(this.endCursor);
       }
     }
   }
@@ -216,6 +285,22 @@ export default {
   background: transparent !important;
 }
 
+.header-desktop-menu {
+  display: flex !important;
+}
+.header-mobile-toggle {
+  display: none !important;
+}
+
+@media (max-width: 1440px) {
+  .header-desktop-menu {
+    display: none !important;
+  }
+  .header-mobile-toggle {
+    display: flex !important;
+  }
+}
+
 .nav-brand-goudy {
   font-family: 'arkhip', sans-serif;
   font-size: 42px;
@@ -224,6 +309,12 @@ export default {
   line-height: 1;
   font-weight: normal;
   letter-spacing: 2px;
+}
+
+@media (max-width: 1440px) {
+  .nav-brand-goudy {
+    font-size: 32px;
+  }
 }
 
 .robust-border-bottom {
