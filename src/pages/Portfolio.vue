@@ -46,7 +46,7 @@
 
     <v-row>
       <v-col
-        v-for="node in filteredNodes"
+        v-for="node in displayedNodes"
         :key="node.id"
         cols="12"
         sm="6"
@@ -58,7 +58,7 @@
             v-bind="props"
             :elevation="isHovering ? 8 : 2"
             class="robust-border bg-steel overflow-hidden"
-            :to="`/${lang.value}/portfolio/${getCatTitle(node)}/${node.title}`"
+            :to="getNodeLink(node)"
           >
             <v-img
               :src="getImage(node)"
@@ -87,16 +87,28 @@
       </v-col>
     </v-row>
 
-    <!-- Load More Button -->
-    <v-row v-if="hasNextPage" class="mt-8 mb-12" justify="center">
-      <v-btn 
-        variant="outlined" 
-        size="x-large" 
-        class="minimal-button robust-border text-amber"
-        @click="$emit('load-more')"
-      >
-        {{ t.portfolio.loadMore }}
-      </v-btn>
+    <!-- Loading indicator -->
+    <v-row v-if="loading" class="mt-8 mb-12" justify="center">
+      <v-progress-circular indeterminate color="amber" class="mr-4"></v-progress-circular>
+      <span class="text-caption align-self-center">{{ t.portfolio.loading }} ({{ nodes.length }})</span>
+    </v-row>
+
+    <!-- Item count & Show More -->
+    <v-row class="mt-8 mb-12" justify="center">
+      <v-col cols="12" class="text-center">
+        <div class="text-caption opacity-60 mb-4">
+          {{ displayedNodes.length }} / {{ filteredNodes.length }} {{ t.portfolio.items }}
+        </div>
+        <v-btn 
+          v-if="displayedNodes.length < filteredNodes.length"
+          variant="outlined" 
+          size="x-large" 
+          class="minimal-button robust-border text-amber"
+          @click="showMore"
+        >
+          {{ t.portfolio.showMore }} ({{ filteredNodes.length - displayedNodes.length }})
+        </v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -110,45 +122,53 @@ export default {
     nodes: Array,
     categories: Array,
     t: Object,
-    hasNextPage: Boolean
+    loading: Boolean
   },
   data: () => ({
     search: '',
-    selectedCategory: null
+    selectedCategory: null,
+    displayLimit: 30
   }),
   mounted() {
     this.handleQueryParam()
   },
   watch: {
-    '$route.query': 'handleQueryParam'
+    '$route.query': 'handleQueryParam',
+    selectedCategory() {
+      this.displayLimit = 30
+    }
   },
   computed: {
     filteredNodes() {
       let filtered = this.nodes
       
       if (this.selectedCategory) {
-        filtered = filtered.filter(n => n.category === this.selectedCategory)
+        filtered = filtered.filter(n => n.categories.includes(this.selectedCategory))
       }
       
       if (this.search) {
         const query = this.search.toLowerCase()
         filtered = filtered.filter(n => 
-          n.title.toLowerCase().includes(query) || 
-          (n.en && n.en.toLowerCase().includes(query)) ||
-          (n.ru && n.ru.toLowerCase().includes(query))
+          (n.title || '').toLowerCase().includes(query) || 
+          (n.en || '').toLowerCase().includes(query) ||
+          (n.ru || '').toLowerCase().includes(query) ||
+          (n.et || '').toLowerCase().includes(query)
         )
       }
       
       return filtered
+    },
+    displayedNodes() {
+      return this.filteredNodes.slice(0, this.displayLimit)
     }
   },
   methods: {
     getCatName(cat) {
       return cat[this.lang.value] || cat.title
     },
-    getCatTitle(node) {
-      const cat = this.categories.find(c => c.id === node.category)
-      return cat ? cat.title : 'general'
+    getNodeLink(node) {
+      const catSlug = this.selectedCategory || (node.categories.length > 0 ? node.categories[0] : 'general')
+      return `/${this.lang.value}/portfolio/${catSlug}/${node.slug}`
     },
     getNodeName(node) {
       return node[this.lang.value] || node.title
@@ -163,6 +183,9 @@ export default {
       } else {
         this.selectedCategory = null
       }
+    },
+    showMore() {
+      this.displayLimit += 30
     }
   }
 }

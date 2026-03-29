@@ -14,7 +14,10 @@
         "title": "Tehtud tööd",
         "all": "Kõik",
         "searchPlaceholder": "Otsi tehtud töid...",
-        "loadMore": "Lae rohkem"
+        "loadMore": "Lae rohkem",
+        "showMore": "Näita rohkem",
+        "items": "tööd",
+        "loading": "Laen..."
     },
     "product": {
         "back": "Tagasi",

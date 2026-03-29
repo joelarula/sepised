@@ -1,3 +1,10 @@
+# Agent Instructions (Legacy)
+
+> **Moved:** The canonical Copilot agent instructions now live in [`.github/copilot-instructions.md`](.github/copilot-instructions.md).  
+> This file is kept for reference only. Update the new file instead.
+
+---
+
 # Agent Instructions: Jaani Sepikoda Portfolio (Vue 3 + Vuetify)
 
 This document provides a comprehensive guide for AI agents working on the "Jaani Sepikoda" smithy portfolio project. It outlines the architecture, design philosophy, and component specifications.

@@ -103,8 +103,7 @@
         :categories="categories" 
         :nodes="nodes" 
         :api="api"
-        :has-next-page="hasNextPage"
-        @load-more="loadMore"
+        :loading="loading"
       ></router-view>
     </v-main>
 
@@ -132,7 +131,7 @@ export default {
     ],
     categories: [],
     nodes: [],
-    options: { mode: 'cors', headers: { 'Access-Control-Allow-Origin': '*' } },
+    loading: true,
     hasNextPage: false,
     endCursor: null
   }),
@@ -180,6 +179,7 @@ export default {
             nodes {
               databaseId
               title
+              slug
               sourceUrl
               mediumUrl: sourceUrl(size: MEDIUM_LARGE)
               largeUrl: sourceUrl(size: LARGE)
@@ -210,47 +210,55 @@ export default {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           query,
-          variables: { first: 30, after: cursor }
+          variables: { first: 100, after: cursor }
         })
       })
       .then(res => res.json())
       .then(resData => {
         if (resData.data && resData.data.mediaItems) {
           this.processData(resData.data.mediaItems);
+          // Auto-fetch next page until all data is loaded
+          if (this.hasNextPage) {
+            this.fetchData(this.endCursor);
+          } else {
+            this.loading = false;
+          }
         }
       })
-      .catch(err => console.error("GraphQL Fetch Error:", err));
+      .catch(err => {
+        console.error("GraphQL Fetch Error:", err);
+        this.loading = false;
+      });
     },
     processData(mediaItems) {
-      // Collect unique categories from the items
+      // Collect unique categories from all category nodes on each item
       mediaItems.nodes.forEach(node => {
         if (node.mediaFiles?.category?.nodes?.length > 0) {
-          const cat = node.mediaFiles.category.nodes[0];
-          // Determine ID, falling back to slug or name if databaseId isn't reliable
-          const catId = cat.slug || cat.databaseId || cat.name;
-          
-          if (!this.categories.some(c => c.id === catId)) {
-            this.categories.push({
-              id: catId,
-              title: cat.name,
-              et: cat.name,
-              ru: cat.name,
-              en: cat.name
-            });
-          }
+          node.mediaFiles.category.nodes.forEach(cat => {
+            const catId = cat.slug || cat.databaseId || cat.name;
+            if (!this.categories.some(c => c.id === catId)) {
+              this.categories.push({
+                id: catId,
+                title: cat.name,
+                et: cat.name,
+                ru: cat.name,
+                en: cat.name
+              });
+            }
+          });
         }
       });
 
-      // Map nodes
+      // Map nodes — categories is now an array
       mediaItems.nodes.forEach(node => {
-        const catId = node.mediaFiles?.category?.nodes?.length > 0 
-          ? (node.mediaFiles.category.nodes[0].slug || node.mediaFiles.category.nodes[0].databaseId || node.mediaFiles.category.nodes[0].name)
-          : null;
+        const categories = (node.mediaFiles?.category?.nodes || []).map(
+          cat => cat.slug || cat.databaseId || cat.name
+        );
 
         const nmap = {
           id: node.databaseId || node.title,
-          category: catId,
-          // Extract file name from URL or fallback to the full URL path
+          slug: node.slug || node.title,
+          categories,
           imagename: node.mediumUrl || node.sourceUrl,
           largeimage: node.hdUrl || node.largeUrl || node.sourceUrl,
           originalimage: node.sourceUrl,
@@ -271,11 +279,7 @@ export default {
       this.hasNextPage = mediaItems.pageInfo?.hasNextPage || false;
       this.endCursor = mediaItems.pageInfo?.endCursor || null;
     },
-    loadMore() {
-      if (this.hasNextPage) {
-        this.fetchData(this.endCursor);
-      }
-    }
+
   }
 };
 </script>

@@ -14,7 +14,10 @@
         "title": "Портфолио",
         "all": "Все",
         "searchPlaceholder": "Поиск в портфолио...",
-        "loadMore": "Загрузить еще"
+        "loadMore": "Загрузить еще",
+        "showMore": "Показать ещё",
+        "items": "работ",
+        "loading": "Загрузка..."
     },
     "product": {
         "back": "Назад",

@@ -14,7 +14,10 @@
         "title": "Tehtud Tööd",
         "all": "All",
         "searchPlaceholder": "Search portfolio...",
-        "loadMore": "Load More"
+        "loadMore": "Load More",
+        "showMore": "Show More",
+        "items": "items",
+        "loading": "Loading..."
     },
     "product": {
         "back": "Back",

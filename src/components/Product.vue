@@ -147,21 +147,28 @@ export default {
   computed: {
     selectedNode() {
       const { product } = this.$route.params
-      return this.nodes.find(n => n.title === product) || null
+      return this.nodes.find(n => n.slug === product) || null
+    },
+    routeCategory() {
+      return this.$route.params.category || null
+    },
+    categoryNodes() {
+      if (!this.routeCategory) return this.nodes
+      return this.nodes.filter(n => n.categories.includes(this.routeCategory))
     },
     currentIndex() {
       if (!this.selectedNode) return -1
-      return this.nodes.findIndex(n => n.id === this.selectedNode.id)
+      return this.categoryNodes.findIndex(n => n.id === this.selectedNode.id)
     },
     hasPrev() { return this.currentIndex > 0 },
-    hasNext() { return this.currentIndex !== -1 && this.currentIndex < this.nodes.length - 1 },
+    hasNext() { return this.currentIndex !== -1 && this.currentIndex < this.categoryNodes.length - 1 },
     getTitle() {
       if (!this.selectedNode) return ''
       return this.selectedNode[this.lang.value] || this.selectedNode.title
     },
     getCategoryName() {
-      if (!this.selectedNode) return ''
-      const cat = this.categories.find(c => c.id === this.selectedNode.category)
+      if (!this.routeCategory) return ''
+      const cat = this.categories.find(c => c.id === this.routeCategory)
       return cat ? (cat[this.lang.value] || cat.title) : ''
     },
     getPreview() {
@@ -193,12 +200,11 @@ export default {
     },
     navigate(step) {
       const nextIndex = this.currentIndex + step
-      if (nextIndex >= 0 && nextIndex < this.nodes.length) {
-        const nextNode = this.nodes[nextIndex]
-        const cat = this.categories.find(c => c.id === nextNode.category)
-        const catTitle = cat ? cat.title : 'general'
+      if (nextIndex >= 0 && nextIndex < this.categoryNodes.length) {
+        const nextNode = this.categoryNodes[nextIndex]
+        const catSlug = this.routeCategory || (nextNode.categories.length > 0 ? nextNode.categories[0] : 'general')
         this.src = "" // Reset focus to main image
-        this.$router.push(`/${this.lang.value}/portfolio/${catTitle}/${nextNode.title}`)
+        this.$router.push(`/${this.lang.value}/portfolio/${catSlug}/${nextNode.slug}`)
       }
     }
   }
