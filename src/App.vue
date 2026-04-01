@@ -40,6 +40,13 @@
             </template>
             <v-list class="bg-steel robust-border border-amber">
               <v-list-item
+                :to="`/${lang.value}/portfolio`"
+                class="minimal-button"
+                active-class="active-nav-item"
+              >
+                <v-list-item-title class="text-uppercase text-caption">{{ t.portfolio.all }}</v-list-item-title>
+              </v-list-item>
+              <v-list-item
                 v-for="cat in categories"
                 :key="cat.id"
                 :to="`/${lang.value}/portfolio?category=${cat.id}`"
@@ -104,6 +111,7 @@
         :nodes="nodes" 
         :api="api"
         :loading="loading"
+        :home-page="homePage"
       ></router-view>
     </v-main>
 
@@ -131,6 +139,7 @@ export default {
     ],
     categories: [],
     nodes: [],
+    homePage: null,
     loading: true,
     hasNextPage: false,
     endCursor: null
@@ -160,6 +169,7 @@ export default {
   },
   created() {
     this.fetchData();
+    this.fetchHomePage();
   },
   methods: {
     isActive(path) {
@@ -171,6 +181,29 @@ export default {
       this.lang = l;
       const newPath = this.$route.path.replace(/^\/(et|en|ru)/, `/${l.value}`) || `/${l.value}`;
       this.$router.push(newPath);
+    },
+    fetchHomePage() {
+      const query = `
+        query GetHomePage {
+          page(id: "esileht", idType: URI) {
+            title
+            content
+          }
+        }
+      `;
+
+      fetch(this.api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query })
+      })
+      .then(res => res.json())
+      .then(resData => {
+        if (resData.data?.page) {
+          this.homePage = resData.data.page;
+        }
+      })
+      .catch(err => console.error('Home page fetch error:', err));
     },
     fetchData(cursor = null) {
       const query = `

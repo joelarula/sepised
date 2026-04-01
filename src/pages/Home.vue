@@ -1,9 +1,14 @@
 <template>
   <v-container fluid class="pa-0 hero-container">
     <div class="hero-overlay d-flex align-center justify-center text-center">
-      <div class="w-100 px-4">
-        <h1 class="smithy-title text-h1 mb-6 pulse-ember">{{ t.home.welcome }}</h1>
-        <p class="text-h5 mb-10 font-weight-light">{{ t.home.subtitle }}</p>
+      <div class="hero-content px-4">
+        <h1 class="smithy-title text-h1 mb-6 pulse-ember">{{ homePage?.title || t.home.welcome }}</h1>
+        <div
+          v-if="homePage?.content"
+          class="home-content text-h6 font-weight-light mb-10"
+          v-html="homePage.content"
+        ></div>
+        <p v-else class="text-h5 mb-10 font-weight-light">{{ t.home.subtitle }}</p>
         <v-btn
           color="amber-darken-4"
           size="x-large"
@@ -23,7 +28,8 @@ export default {
   name: 'Home',
   props: {
     lang: Object,
-    t: Object
+    t: Object,
+    homePage: Object
   }
 }
 </script>
@@ -39,8 +45,26 @@ export default {
   background: rgba(0, 0, 0, 0.6);
 }
 
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .smithy-title {
   color: #FDDE7C;
   text-shadow: 0 0 20px rgba(253, 222, 124, 0.4);
+}
+
+.home-content {
+  color: var(--color-silver);
+  line-height: 1.8;
+}
+
+.home-content :deep(p) {
+  margin-bottom: 1rem;
+}
+
+.home-content :deep(strong) {
+  color: #ff6d00;
 }
 </style>
