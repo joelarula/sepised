@@ -30,6 +30,7 @@
           <div class="text-h5 font-weight-light opacity-80">{{ t.contact.locationValue }}</div>
         </div>
       </div>
+      <img src="/src/assets/alasi.png" alt="alasi" class="alasi-img mt-8 mb-2" />
     </v-card>
   </v-container>
 </template>
@@ -84,5 +85,16 @@ export default {
 
 .ember-text {
   color: var(--color-ember);
+}
+
+.alasi-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 180px;
+  width: 80%;
+  height: auto;
+  filter: drop-shadow(0 6px 32px rgba(0,0,0,0.85)) drop-shadow(0 0 24px #ff6d00aa);
+  transition: max-width 0.3s;
 }
 </style>

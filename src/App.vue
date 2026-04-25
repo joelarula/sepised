@@ -3,7 +3,6 @@
     <v-app-bar 
       flat 
       color="transparent" 
-      class="robust-border-bottom"
       density="comfortable"
       absolute
     >
@@ -115,7 +114,27 @@
       ></router-view>
     </v-main>
 
-    <v-footer color="transparent" class="pa-12"></v-footer>
+    <v-footer
+      v-if="!isContactPage"
+      class="contact-footer d-flex align-center justify-center"
+      style="background: rgba(44,44,46,0.45); border-top: 1px solid rgba(255,255,255,0.05); min-height: 64px; backdrop-filter: blur(8px);"
+      height="auto"
+    >
+      <div class="d-flex flex-column flex-sm-row align-center justify-center w-100 text-center">
+        <span class="mr-4 text-caption" style="color:#FDDE7C;">
+          <v-icon :color="'#FDDE7C'" size="small" class="mr-1">md:mail</v-icon>
+          <a href="mailto:jaan59021@gmail.com" class="footer-link" style="color:#FDDE7C;text-decoration:underline;">jaan59021@gmail.com</a>
+        </span>
+        <span class="mx-4 text-caption" style="color:#FDDE7C;">
+          <v-icon :color="'#FDDE7C'" size="small" class="mr-1">md:call</v-icon>
+          <a href="tel:55629571" class="footer-link" style="color:#FDDE7C;text-decoration:underline;">55629571</a>
+        </span>
+        <span class="ml-4 text-caption" style="color:#FDDE7C;">
+          <v-icon :color="'#FDDE7C'" size="small" class="mr-1">md:location_on</v-icon>
+          {{ t.contact.locationValue }}
+        </span>
+      </div>
+    </v-footer>
   </v-app>
 </template>
 
@@ -337,6 +356,7 @@ export default {
     display: flex !important;
   }
 }
+
 
 .nav-brand-goudy {
   font-family: 'arkhip', sans-serif;

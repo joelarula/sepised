@@ -64,7 +64,16 @@ export default {
     filteredNodes (){
       let nd = this.nodes
       let cid = this.selectedCategory.id;
-      return nd.filter(n => n.category === cid);
+      // Sort by updated (or created) date descending
+      return nd
+        .filter(n => n.category === cid)
+        .slice() // copy array
+        .sort((a, b) => {
+          // Prefer 'modified' (updated), fallback to 'date' (created)
+          const dateA = new Date(a.modified || a.date || 0);
+          const dateB = new Date(b.modified || b.date || 0);
+          return dateB - dateA;
+        });
     },
     getTitle(){
       return this.selectedCategory[this.lang.value] != undefined ? this.selectedCategory[this.lang.value] : this.selectedCategory.title

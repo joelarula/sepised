@@ -141,11 +141,11 @@ export default {
   computed: {
     filteredNodes() {
       let filtered = this.nodes
-      
+
       if (this.selectedCategory) {
         filtered = filtered.filter(n => n.categories.includes(this.selectedCategory))
       }
-      
+
       if (this.search) {
         const query = this.search.toLowerCase()
         filtered = filtered.filter(n => 
@@ -155,8 +155,13 @@ export default {
           (n.et || '').toLowerCase().includes(query)
         )
       }
-      
-      return filtered
+
+      // Sort by updated (or created) date descending
+      return filtered.slice().sort((a, b) => {
+        const dateA = new Date(a.modified || a.date || 0);
+        const dateB = new Date(b.modified || b.date || 0);
+        return dateB - dateA;
+      });
     },
     displayedNodes() {
       return this.filteredNodes.slice(0, this.displayLimit)

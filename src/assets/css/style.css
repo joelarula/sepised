@@ -1,5 +1,6 @@
+
 @font-face {
-  font-family: goudy;
+  font-family: 'goudy';
   src: url(../fonts/goudy.18adeb54.eot);
 }
 
@@ -8,10 +9,15 @@
   src: url('../fonts/Arkhip_font.ttf') format('truetype');
 }
 
+
+
 :root {
-  /* Forge & Steel Palette */
-  --color-charcoal: #121212;
-  --color-steel: #2c2c2e;
+  color: var(--color-silver);
+  line-height: 1.8;
+  font-size: 1.45rem;
+  font-weight: 500;
+  text-shadow: 0 2px 16px #000, 0 0 2px #ff6d0044;
+  letter-spacing: 0.01em;
   --color-silver: #e0e0e0;
   --color-ember: #ff6d00;
   --color-ember-glow: rgba(255, 109, 0, 0.4);
